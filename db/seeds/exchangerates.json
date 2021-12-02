@@ -1,0 +1,12 @@
+[
+    {
+        "username" : "admin",
+        "currency" : "USD",
+        "rate" : 1.29
+    },
+    {
+        "username" : "admin",
+        "currency" : "EUR",
+        "rate" : 1.13
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "password": "admin",
+        "email": "email@gmail.com",
+        "lastName": "admin",
+        "firstName": "admin",
+        "username": "admin",
+        "createdAt": "2021-11-30T15:32:03.001Z",
+        "updatedAt": "2021-11-30T15:32:03.001Z"
+    }
+]

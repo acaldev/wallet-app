@@ -1,0 +1,53 @@
+$grey: #ecf0f1;
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.dashboard {
+  height: 100vh;
+  background-color: $grey;
+
+  .fav {
+    font-size: 20px;
+    color: $warning;
+  }
+  .w-icon {
+    width: 40px;
+    height: 40px;
+    i {
+      font-size: 20px;
+      color: $white;
+    }
+  }
+
+  .account-list {
+    max-height: 70vh;
+    overflow: auto;
+  }
+}
+
+.scrollbar {
+  $scrollbar-2-thumb-width: 10px;
+  $scrollbar-2-thumb-color: $primary;
+  $scrollbar-2-track-color: #bbb;
+  &::-webkit-scrollbar {
+    width: $scrollbar-2-thumb-width;
+    height: $scrollbar-2-thumb-width;
+
+    &-track {
+      background-color: $scrollbar-2-track-color;
+    }
+
+    &-thumb {
+      background-color: $scrollbar-2-thumb-color;
+    }
+
+    &-track,
+    &-thumb {
+      border-radius: 12px;
+    }
+  }
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-2-thumb-color $scrollbar-2-track-color;
+}

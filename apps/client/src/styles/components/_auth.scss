@@ -1,0 +1,36 @@
+.auth {
+  background: #11181f;
+
+  height: 100vh;
+  overflow: hidden;
+}
+
+.paarticle {
+  width: 100%;
+}
+
+#paarticle path {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.auth-card {
+  max-width: 900px;
+}
+.auth-left-panel {
+  background: linear-gradient(-45deg, #34495e, #263545, #18222b, #11181f);
+  animation: gradient 15s ease infinite;
+  background-size: 400% 400%;
+}

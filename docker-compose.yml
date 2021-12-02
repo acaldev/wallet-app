@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+
+    frontend:
+      container_name: frontend
+      build:
+        context: ./apps/client
+        dockerfile: Dockerfile.local
+      restart: always
+      env_file: .env
+      ports:
+        - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+      volumes:
+        - "./apps/client/src:/usr/src/app/src"
+      networks:
+        - bp-network
+      command: "npm start"
+
+    backend:
+        container_name: backend
+        build:
+          context: ./apps/api
+          dockerfile: Dockerfile.local
+        restart: always
+        env_file: .env
+        volumes:
+          - ./apps/api:/svr/app
+          - /svr/app/node_modules
+        networks:
+          - bp-network
+        ports:
+          - "${BACKEND_PORT}:${BACKEND_PORT}"
+        links:
+          - mongodb
+        depends_on:
+          - mongodb
+
+    mongodb:
+      image: 'mongo'
+      container_name: 'mongodb'
+      ports:
+        - "27017:27017"
+      volumes: 
+        - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+        - ./db/mongo-volume:/data/db
+        - ./db/seeds:/mongo-seed
+      healthcheck:
+        test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
+        interval: 30s
+        timeout: 10s
+        retries: 3
+      restart: unless-stopped
+      networks:
+        - bp-network
+    mongo_seed:
+      image: 'mongo'
+      links:
+        - mongodb
+      volumes:
+        - ./db/seeds:/mongo-seed
+      command:
+        /mongo-seed/import.sh
+      depends_on:
+          - mongodb
+      networks:
+        - bp-network
+    nginx:
+      container_name: nginx
+      build:
+        context: ./nginx
+        dockerfile: Dockerfile.local
+      ports:
+          - "80:80"
+      networks:
+          - bp-network
+      restart: unless-stopped
+      links:
+          - backend
+          - frontend
+      depends_on:
+          - mongodb
+
+networks:
+  bp-network:
+    driver: bridge
